@@ -14,5 +14,5 @@
 - sudo cp ~/GaliciaSustentable_deployment/supervisor.d/galicia_sustentable.conf /etc/supervisor/conf.d/
 
 ## Start first time and mail it alive forever :)
-- service supervisord restart
+- service supervisor restart
 
