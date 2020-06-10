@@ -1,17 +1,18 @@
 # Installation instruction
 
-- Settign up cloud machine
-apt install docker-compose docker.io
-usermod -G docker ubuntu
-apt install supervisord
+## Settign up cloud machine
+- apt install docker-compose docker.io
 
-- clone this repo in home of the cloud machine (default user)
+- usermod -G docker ubuntu
 
-git clone https://github.com/luipir/GaliciaSustentable_deployment.git
+- apt install supervisord
 
-- Install supervisor.d configuration
-sudo cp ~/spuervisor.d/galicia_sustentable.conf /etc/supervisor/conf.d/
+## clone this repo in home of the cloud machine (default user)
+- git clone https://github.com/luipir/GaliciaSustentable_deployment.git
 
-- start first time and mail it alive forever :)
-service supervisord restart
+## Install supervisor.d configuration
+- sudo cp ~/spuervisor.d/galicia_sustentable.conf /etc/supervisor/conf.d/
+
+## Start first time and mail it alive forever :)
+- service supervisord restart
 
