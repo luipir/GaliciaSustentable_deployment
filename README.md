@@ -11,7 +11,7 @@
 - git clone https://github.com/luipir/GaliciaSustentable_deployment.git
 
 ## Install supervisor.d configuration
-- sudo cp ~/spuervisor.d/galicia_sustentable.conf /etc/supervisor/conf.d/
+- sudo cp ~/GaliciaSustentable_deployment/spuervisor.d/galicia_sustentable.conf /etc/supervisor/conf.d/
 
 ## Start first time and mail it alive forever :)
 - service supervisord restart
