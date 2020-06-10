@@ -5,7 +5,7 @@
 
 - usermod -G docker ubuntu
 
-- apt install supervisord
+- apt install supervisor
 
 ## clone this repo in home of the cloud machine (default user)
 - git clone https://github.com/luipir/GaliciaSustentable_deployment.git
