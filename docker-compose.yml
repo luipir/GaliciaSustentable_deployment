@@ -10,7 +10,7 @@ services:
   db:
     image: kartoza/postgis:12.1
     volumes:
-      - ./postgis-data:/var/lib/postgresql
+      - ${HOME}/postgis-data:/var/lib/postgresql
       # - dbbackups:/backups
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
@@ -48,7 +48,6 @@ services:
 
   grafana:
     image: grafana/grafana:7.0.1
-    container_name: grafana_galiciasustentable
     ports:
       - "3000:3000"
     environment:
@@ -59,7 +58,7 @@ services:
     volumes:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
-      - ./grafana-data:/var/lib/grafana
+      - ${HOME}/grafana-data:/var/lib/grafana
     restart: on-failure
     healthcheck:
       test: "exit 0"
