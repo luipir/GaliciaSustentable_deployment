@@ -18,7 +18,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1593514357061,
+  "iteration": 1594031000647,
   "links": [
     {
       "icon": "external link",
@@ -166,7 +166,23 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
@@ -176,20 +192,17 @@
         "x": 12,
         "y": 0
       },
-      "id": 6,
+      "id": 8,
       "options": {
-        "color": "red",
-        "seriesCountSize": "sm",
-        "showSeriesCount": false,
-        "text": "Default value of text input option"
+        "showHeader": true
       },
       "targets": [
         {
-          "format": "time_series",
+          "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  $__time(time_column),\n  value1\nFROM\n  metric_table\nWHERE\n  $__timeFilter(time_column)\n",
+          "rawSql": "SELECT\n  TO_TIMESTAMP(\"año\"::text, 'YYYY') as \"time\",\n  \"02_evaluation\" as \"a_metric\"\nFROM \"Theme 1 synthesis\"\nWHERE ${Interval}::integer = \"año\"::integer\nORDER BY 1,2",
           "refId": "A",
           "select": [
             [
@@ -213,8 +226,8 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Panel Title",
-      "type": "luipir-sunburst1-panel"
+      "title": "Año ${YEAR}",
+      "type": "luipir-sunburst4-panel"
     },
     {
       "datasource": "GaliciaSustentable",
@@ -600,25 +613,219 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": "2017",
-          "value": [
-            "2017"
-          ]
+          "selected": false,
+          "text": "public",
+          "value": "public"
         },
         "datasource": "GaliciaSustentable",
-        "definition": "select distinct(\"año\")::integer from \"Theme 1 synthesis\"",
+        "definition": "SELECT\n\tschema_name\nFROM\n\tinformation_schema.schemata\nWHERE\n\tschema_name !~ '^(pg_)' AND\n\tschema_name != 'information_schema' AND\n\tschema_name != 'topology' AND\n\tschema_name != 'cron'\n",
         "hide": 0,
         "includeAll": false,
-        "label": null,
+        "label": "Proyecto",
         "multi": false,
-        "name": "Interval",
+        "name": "SCHEMA",
         "options": [],
-        "query": "select distinct(\"año\")::integer from \"Theme 1 synthesis\"",
-        "refresh": 2,
+        "query": "SELECT\n\tschema_name\nFROM\n\tinformation_schema.schemata\nWHERE\n\tschema_name !~ '^(pg_)' AND\n\tschema_name != 'information_schema' AND\n\tschema_name != 'topology' AND\n\tschema_name != 'cron'\n",
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 3,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "evaluation",
+          "value": "evaluation"
+        },
+        "hide": 2,
+        "label": null,
+        "name": "EVALUATION_COLUMN",
+        "options": [
+          {
+            "selected": true,
+            "text": "evaluation",
+            "value": "evaluation"
+          }
+        ],
+        "query": "evaluation",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "año",
+          "value": "año"
+        },
+        "hide": 2,
+        "label": null,
+        "name": "YEAR_COLUMN",
+        "options": [
+          {
+            "selected": true,
+            "text": "año",
+            "value": "año"
+          }
+        ],
+        "query": "año",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "03 Autocontencion laboral evaluated",
+          "value": "03 Autocontencion laboral evaluated"
+        },
+        "datasource": "GaliciaSustentable",
+        "definition": "SELECT\n\t table_name\nFROM\n\tinformation_schema.tables\nWHERE\n\ttable_schema = '${SCHEMA}' AND\n\ttable_type = 'BASE TABLE' AND\n        table_name ~ '^(0|1|A|B|Theme)'\n",
+        "hide": 2,
+        "includeAll": false,
+        "label": "Indice",
+        "multi": false,
+        "name": "INDEX_TABLES",
+        "options": [],
+        "query": "SELECT\n\t table_name\nFROM\n\tinformation_schema.tables\nWHERE\n\ttable_schema = '${SCHEMA}' AND\n\ttable_type = 'BASE TABLE' AND\n        table_name ~ '^(0|1|A|B|Theme)'\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "Saldo migratorio",
+          "value": "Saldo migratorio"
+        },
+        "datasource": "GaliciaSustentable",
+        "definition": "select display_name from \"${SCHEMA}\".indexes_metadata",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "INDEX",
+        "options": [],
+        "query": "select display_name from \"${SCHEMA}\".indexes_metadata",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "04 Saldo migratorio percentage evaluated",
+          "value": "04 Saldo migratorio percentage evaluated"
+        },
+        "datasource": "GaliciaSustentable",
+        "definition": "SELECT index_table_name \nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "INDEX_TABLE",
+        "options": [],
+        "query": "SELECT index_table_name \nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "2013",
+          "value": "2013"
+        },
+        "datasource": "GaliciaSustentable",
+        "definition": "select distinct(\"${YEAR_COLUMN}\")::integer from \"${SCHEMA}\".\"${INDEX_TABLE}\"",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Año",
+        "multi": false,
+        "name": "YEAR",
+        "options": [],
+        "query": "select distinct(\"${YEAR_COLUMN}\")::integer from \"${SCHEMA}\".\"${INDEX_TABLE}\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 4,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "Autocontención laboral",
+          "value": "Autocontención laboral"
+        },
+        "datasource": "GaliciaSustentable",
+        "definition": "SELECT\n    'Autocontención laboral' AS display_name,\n    \"Autocontención laboral\",\n    \"${EVALUATION_COLUMN}\"\nFROM\n    \"${SCHEMA}\".\"03 Autocontencion laboral evaluated\"\nWHERE\n    \"${YEAR_COLUMN}\"::integer = ${YEAR}",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "03_AUTOCONTENCION_LABORAL",
+        "options": [],
+        "query": "SELECT\n    'Autocontención laboral' AS display_name,\n    \"Autocontención laboral\",\n    \"${EVALUATION_COLUMN}\"\nFROM\n    \"${SCHEMA}\".\"03 Autocontencion laboral evaluated\"\nWHERE\n    \"${YEAR_COLUMN}\"::integer = ${YEAR}",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "Saldo migratorio",
+          "value": "Saldo migratorio"
+        },
+        "datasource": "GaliciaSustentable",
+        "definition": "SELECT\n    'Saldo migratorio' AS display_name,\n    \"Saldo migratorio\",\n    \"${EVALUATION_COLUMN}\"\nFROM\n    \"${SCHEMA}\".\"04 Saldo migratorio percentage evaluated\"\nWHERE\n    \"${YEAR_COLUMN}\"::integer = ${YEAR}",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "04_SALDO_MIGRATORIO",
+        "options": [],
+        "query": "SELECT\n    'Saldo migratorio' AS display_name,\n    \"Saldo migratorio\",\n    \"${EVALUATION_COLUMN}\"\nFROM\n    \"${SCHEMA}\".\"04 Saldo migratorio percentage evaluated\"\nWHERE\n    \"${YEAR_COLUMN}\"::integer = ${YEAR}",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
@@ -628,8 +835,8 @@
     ]
   },
   "time": {
-    "from": "now-6h",
-    "to": "now"
+    "from": "2005-01-01T00:00:00.000Z",
+    "to": "2018-01-01T00:00:00.000Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -647,5 +854,5 @@
   "timezone": "browser",
   "title": "Theme 1 synthesis",
   "uid": "Vg9ZQOzMz",
-  "version": 33
+  "version": 55
 }
