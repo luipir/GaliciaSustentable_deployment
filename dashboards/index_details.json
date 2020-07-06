@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 5,
-  "iteration": 1593514430385,
+  "iteration": 1594031420340,
   "links": [],
   "panels": [
     {
@@ -144,7 +144,7 @@
       "options": {
         "showHeader": false
       },
-      "pluginVersion": "7.0.4",
+      "pluginVersion": "7.0.5",
       "repeat": null,
       "repeatDirection": "h",
       "targets": [
@@ -248,7 +248,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.0.4",
+      "pluginVersion": "7.0.5",
       "targets": [
         {
           "format": "table",
@@ -473,7 +473,7 @@
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "7.0.4",
+      "pluginVersion": "7.0.5",
       "targets": [
         {
           "format": "table",
