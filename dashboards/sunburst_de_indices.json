@@ -18,7 +18,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1594111281072,
+  "iteration": 1594112967232,
   "links": [
     {
       "icon": "external link",
@@ -95,7 +95,7 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Año ${YEAR}",
-      "type": "luipir-sunburst4-panel"
+      "type": "luipir-sunburst-panel"
     }
   ],
   "refresh": false,
@@ -104,6 +104,29 @@
   "tags": [],
   "templating": {
     "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "año",
+          "value": "año"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "YEAR_COLUMN",
+        "options": [
+          {
+            "selected": true,
+            "text": "año",
+            "value": "año"
+          }
+        ],
+        "query": "año",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
       {
         "allValue": null,
         "current": {
@@ -133,7 +156,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "2017",
           "value": "2017"
         },
@@ -283,5 +306,5 @@
   "timezone": "browser",
   "title": "Sunburst de indices",
   "uid": "Sunburst_de_indices_v0_1",
-  "version": 2
+  "version": 5
 }
