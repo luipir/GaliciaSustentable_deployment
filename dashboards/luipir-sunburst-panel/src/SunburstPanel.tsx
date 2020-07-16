@@ -8,7 +8,7 @@ import Sunburst, { Node } from 'sunburst-chart';
 
 type Props = PanelProps<Options>;
 
-const JSON_GRAFANA_VAR: string = 'INDEXES_SUNBURST' // <<-- cheange if you rename var
+const JSON_GRAFANA_VAR: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
 
 export class SunburstPanel extends Component<Props> {
 
@@ -32,7 +32,36 @@ export class SunburstPanel extends Component<Props> {
     variable.options[0].text == "None"? 
       this.values = null :
       this.values = JSON.parse(variable.options[0].text)
+
+    const color_map = {
+      "dark-ŕed": "#C4162A",
+      "dark-orange": "#FA6400",
+      "dark-yellow": "#E0B400",
+      "dark-green": "#37872D"
+    }
     
+    // update colors to map grafana-colors to RGBA notation
+    function updateGrafanaColors(values: any) {
+
+      _.each(values, function(obj: any, key: any){
+        if (typeof(obj)=="object") {
+          // parse inside
+          updateGrafanaColors(obj)
+
+          // end parsing, then check if having color element
+          if (_.has(obj, "color")) {
+            obj["rgb_color"] = color_map[obj.color];
+            console.log(obj.rgb_color);
+          }
+        } else {
+
+        }
+      });
+
+    }
+    var nested = {"container": this.values}
+    updateGrafanaColors(nested)
+
     console.log(this.values)
   }
 
@@ -64,7 +93,7 @@ export class SunburstPanel extends Component<Props> {
         this.myChart
         .data(this.values)
         .size('size')
-        .color('color')
+        .color('rgb_color')
         .tooltipContent(this.onToolthipContent.bind(this))
         .width(width)
         .height(height)
