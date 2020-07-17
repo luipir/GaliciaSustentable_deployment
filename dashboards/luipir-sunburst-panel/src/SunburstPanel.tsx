@@ -51,7 +51,6 @@ export class SunburstPanel extends Component<Props> {
           // end parsing, then check if having color element
           if (_.has(obj, "color")) {
             obj["rgb_color"] = color_map[obj.color];
-            console.log(obj.rgb_color);
           }
         } else {
 
@@ -80,6 +79,18 @@ export class SunburstPanel extends Component<Props> {
     )
   }
 
+  cleanSunburst() {
+    const tooltips = document.getElementsByClassName('sunburst-tooltip');
+    _.each(tooltips, (tooltip: HTMLDivElement) => {
+      tooltip.remove()
+    })
+
+    const charts = document.getElementsByClassName('sunburst-viz');
+    _.each(charts, (chart: HTMLDivElement) => {
+      chart.remove()
+    })
+  }
+
   renderSunburst() {
     // console.log(this.props)
     const { height, width } = this.props;
@@ -87,19 +98,21 @@ export class SunburstPanel extends Component<Props> {
     // remove previous chart
     const chart = document.getElementById('sunburst-chart-container');
     if (chart) {
-      chart.innerHTML = '';
+      this.cleanSunburst()
 
       if (this.values) {
+        this.myChart = Sunburst();
+
         this.myChart
-        .data(this.values)
-        .size('size')
-        .color('rgb_color')
-        .tooltipContent(this.onToolthipContent.bind(this))
-        .width(width)
-        .height(height)
-        .onClick(
-          this.onClickCallback.bind(this) // bind to allow visibility of "this" insde the callback
-        )(chart);
+          .data(this.values)
+          .size('size')
+          .color('rgb_color')
+          .tooltipContent(this.onToolthipContent.bind(this))
+          .width(width)
+          .height(height)
+          .onClick(
+            this.onClickCallback.bind(this) // bind to allow visibility of "this" insde the callback
+          )(chart);
 
         if (this.lastZoomedNode) {
           this.myChart.focusOnNode(this.lastZoomedNode);
