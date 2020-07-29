@@ -7,7 +7,6 @@ import { DataLinksContextMenuApi } from '@grafana/ui/components/DataLinks/DataLi
 
 import { GaugeOptions } from './types';
 
-// const METRIC_VALUE: string = 'METRIC_VALUE' // <<-- change if rename the var
 const INDEX: string = 'INDEX' // <<-- change if rename the var
 const METRIC_VALUE: string = 'METRIC_VALUE' // <<-- change if rename the var
 const INDEX_CLASSES: string = 'INDEX_CLASSES' // <<-- change if rename the var
@@ -125,10 +124,6 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
         "value": classes[i].low
       }
     }
-    // steps[this.classes.length] = steps[this.classes.length-1]
-    // steps[this.classes.length].value = Infinity;
-    // steps[this.classes.length + 1] = steps[0];
-    // steps[this.classes.length + 1].value = -Infinity;
 
     this.props.fieldConfig.defaults.thresholds.steps = steps
     this.props.fieldConfig.defaults.thresholds.mode = 'absolute'
@@ -167,12 +162,10 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
           break;
         }
       }
-      // this.props.data.series[0].fields[0].state.displayName = category_value
+
       this.props.data.series[0].fields[0].values.buffer[0] = String(numeric_value)
-      // this.props.data.series[0].fields[0].type = "STRING"
 
     } else {
-      // this.props.data.series[0].fields[0].state.displayName = this.props.data.series[0].fields[0].values.buffer[0]
       this.props.fieldConfig.defaults.mappings = []
       this.props.data.series[0].fields[0].type = "number"
     }
