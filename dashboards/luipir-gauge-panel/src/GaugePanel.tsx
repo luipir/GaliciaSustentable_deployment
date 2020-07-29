@@ -52,7 +52,6 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
 
     // get values form variable to setup correct legend scale
     if (isNaN(this.currentMetricValue)) {
-      value.name = this.currentMetricValue
       value.display.numeric = this.props.data.series[0].fields[0].values.buffer[0];
       value.display.text = String(this.currentMetricValue);
       value.display.color = this.currentMetricColor;
