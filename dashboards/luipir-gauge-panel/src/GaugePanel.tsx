@@ -50,9 +50,14 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
     const { value } = valueProps;
     const { getLinks, hasLinks } = value;
 
-    // get values form variable to setup correct legend scale
+    // In case metric is string and not value, set correctly what to display as value
+    // and color.
     if (isNaN(this.currentMetricValue)) {
+      // setting value.display.numeric allow use of gauge scale usign the corresponding 
+      // numeric value of the category value of the metric
       value.display.numeric = this.props.data.series[0].fields[0].values.buffer[0];
+
+      // set color and text to display for a non numeric value
       value.display.text = String(this.currentMetricValue);
       value.display.color = this.currentMetricColor;
     }
@@ -162,6 +167,8 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
         }
       }
 
+      // based on this value the gauge will represent the scale
+      // it is not the showned value that is set later before rendering
       this.props.data.series[0].fields[0].values.buffer[0] = String(numeric_value)
 
     } else {
