@@ -4,7 +4,6 @@ import { config, GrafanaBootConfig, getDataSourceSrv } from '@grafana/runtime';
 import { getColorFromHexRgbOrName, FieldDisplay, getFieldDisplayValues, PanelProps, VizOrientation, DataSourceApi } from '@grafana/data';
 import { DataLinksContextMenu, Gauge, VizRepeater, VizRepeaterRenderValueProps } from '@grafana/ui';
 import { DataLinksContextMenuApi } from '@grafana/ui/components/DataLinks/DataLinksContextMenu';
-import { colors } from '@grafana/ui';
 
 import { GaugeOptions } from './types';
 
