@@ -1,0 +1,37 @@
+{
+  "name": "luipir-table-panel",
+  "version": "1.0.0",
+  "description": "table D3 integration custom colors scale and ranges. This is necessary because color scale can't be set in templates",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build ",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch"
+  },
+  "repository": "github:grafana/simple-react-panel",
+  "author": "Luigi Pirelli",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/grafana/simple-react-panel/issues",
+    "email": "luipir@gmail.com"
+  },
+  "devDependencies": {
+    "@grafana/data": "^7.1.1",
+    "@grafana/runtime": "^7.1.1",
+    "@grafana/toolkit": "^7.1.1",
+    "@grafana/ui": "^7.1.1",
+    "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "@typescript-eslint/parser": "^3.5.0",
+    "emotion": "^10.0.27",
+    "react-dom": "^16.13.1"
+  },
+  "engines": {
+    "node": ">=12 <13"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "@types/d3": "^5.7.2",
+    "@types/lodash": "^4.14.158",
+    "lodash": "^4.17.19"
+  }
+}

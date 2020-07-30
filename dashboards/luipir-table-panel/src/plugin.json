@@ -1,0 +1,17 @@
+{
+  "type": "panel",
+  "name": "Custom table",
+  "id": "luipir-table-panel",
+
+  "info": {
+    "description": "Custom Table Panel for Grafana with variable color legend management",
+    "author": {
+      "name": "Grafana Labs",
+      "url": "https://grafana.com"
+    },
+    "logos": {
+      "small": "img/icn-table-panel.svg",
+      "large": "img/icn-table-panel.svg"
+    }
+  }
+}
