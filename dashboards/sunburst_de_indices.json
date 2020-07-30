@@ -18,7 +18,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1596099524683,
+  "iteration": 1596122492423,
   "links": [
     {
       "icon": "external link",
@@ -161,7 +161,7 @@
             "align": null
           },
           "mappings": [],
-          "max": 10,
+          "max": 100,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -172,15 +172,15 @@
               },
               {
                 "color": "dark-orange",
-                "value": 0.03
+                "value": 60
               },
               {
                 "color": "dark-yellow",
-                "value": 1
+                "value": 70
               },
               {
                 "color": "dark-green",
-                "value": 5
+                "value": 80
               }
             ]
           }
@@ -189,7 +189,7 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 6,
+        "w": 9,
         "x": 7,
         "y": 4
       },
@@ -241,6 +241,132 @@
       "type": "luipir-gauge-panel"
     },
     {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "dark-orange",
+                "value": 60
+              },
+              {
+                "color": "dark-yellow",
+                "value": 70
+              },
+              {
+                "color": "dark-green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "low"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "lcd-gauge"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "high"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "lcd-gauge"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      "id": 20,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.1.1",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT *\nFROM json_to_recordset(\n  '${INDEX_CLASSES}'\n) as t(low float, high float, value text, color text) order by low\n\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Panel Title",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "color": true
+            },
+            "indexByName": {},
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "luipir-table-panel"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -272,9 +398,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 11,
-        "x": 13,
-        "y": 4
+        "w": 24,
+        "x": 0,
+        "y": 13
       },
       "hiddenSeries": false,
       "id": 16,
@@ -396,7 +522,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 22
       },
       "id": 18,
       "options": {
@@ -548,8 +674,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "Saldo migratorio",
-          "value": "Saldo migratorio"
+          "text": "Accesibilidad recursos sanitarios",
+          "value": "Accesibilidad recursos sanitarios"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT display_name FROM \"${SCHEMA}\".indexes_metadata",
@@ -574,8 +700,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "04 Saldo migratorio percentage evaluated",
-          "value": "04 Saldo migratorio percentage evaluated"
+          "text": "07 Proximity by year evaluated",
+          "value": "07 Proximity by year evaluated"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT index_table_name \nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -600,8 +726,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "Saldo migratorio",
-          "value": "Saldo migratorio"
+          "text": "percentage",
+          "value": "percentage"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT metric_column\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -699,8 +825,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "[saldo migratorio/nº habitantes]*100",
-          "value": "[saldo migratorio/nº habitantes]*100"
+          "text": "100% Proximidad centro atención primaria",
+          "value": "100% Proximidad centro atención primaria"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT formula\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -725,8 +851,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "[\n     {\n         \"low\": 0,\n         \"high\": 0.03,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 0.03,\n         \"high\": 1,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 1,\n         \"high\": 5,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 5,\n         \"high\": 10,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]",
-          "value": "[\n     {\n         \"low\": 0,\n         \"high\": 0.03,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 0.03,\n         \"high\": 1,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 1,\n         \"high\": 5,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 5,\n         \"high\": 10,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]"
+          "text": "[\n     {\n         \"low\": 0,\n         \"high\": 60,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 60,\n         \"high\": 70,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 70,\n         \"high\": 80,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 80,\n         \"high\": 100,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]",
+          "value": "[\n     {\n         \"low\": 0,\n         \"high\": 60,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 60,\n         \"high\": 70,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 70,\n         \"high\": 80,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 80,\n         \"high\": 100,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT classes::json->'classes'\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -751,8 +877,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "0.4120821654185667",
-          "value": "0.4120821654185667"
+          "text": "80",
+          "value": "80"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\" where \"${YEAR_COLUMN}\"=${YEAR}",
@@ -777,8 +903,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "0.5488651406063346",
-          "value": "0.5488651406063346"
+          "text": "72",
+          "value": "72"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\"",
@@ -802,8 +928,8 @@
     ]
   },
   "time": {
-    "from": "now-6h",
-    "to": "now"
+    "from": "2011-01-01T00:00:00.000Z",
+    "to": "2018-01-01T00:00:00.000Z"
   },
   "timepicker": {
     "hidden": true,
@@ -822,5 +948,5 @@
   "timezone": "browser",
   "title": "Sunburst de indices",
   "uid": "Sunburst_de_indices_v0_1",
-  "version": 40
+  "version": 47
 }
