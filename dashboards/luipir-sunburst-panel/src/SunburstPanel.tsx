@@ -98,8 +98,6 @@ export class SunburstPanel extends Component<Props> {
 
   onClickCallback(node: Node | null) {
     if (node) {
-      console.log(node)
-      console.log(typeof(node))
       this.myChart.focusOnNode(node);
       this.zoomedNode = node;
     }
