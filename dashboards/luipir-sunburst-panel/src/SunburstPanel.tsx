@@ -8,7 +8,7 @@ import Sunburst, { Node } from 'sunburst-chart';
 
 type Props = PanelProps<Options>;
 
-const JSON_GRAFANA_VAR: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
+const INDEXES_SUNBURST: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
 
 export class SunburstPanel extends Component<Props> {
 
@@ -28,7 +28,7 @@ export class SunburstPanel extends Component<Props> {
     var variable: any;
     const dataSource:DataSourceApi = getDataSourceSrv() as unknown as DataSourceApi;
 
-    variable = _.find(dataSource.templateSrv.getVariables(), {'name':JSON_GRAFANA_VAR});
+    variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEXES_SUNBURST});
     variable.options[0].text == "None"? 
       this.values = null :
       this.values = JSON.parse(variable.options[0].text)
@@ -60,19 +60,17 @@ export class SunburstPanel extends Component<Props> {
     }
     var nested = {"container": this.values}
     updateGrafanaColors(nested)
-
-    console.log(this.values)
   }
 
   onClickCallback(node: Node | null) {
     if (node) {
+      console.log(node)
       this.myChart.focusOnNode(node);
       this.lastZoomedNode = node;
     }
   }
 
   onToolthipContent(d: any, node: Node) {
-    // console.log(node)
     const content = '<i><b>Valoración: ' + node.data.value + '</b></i>'
     return (
       content
@@ -90,6 +88,19 @@ export class SunburstPanel extends Component<Props> {
       chart.remove()
     })
   }
+
+  // addHyperlinks() {
+  //   const charts = document.getElementsByClassName('sunburst-viz');
+  //   const chart = charts[0]
+  //   const ps = chart.getElementsByClassName('path-label');
+  //   console.log('......................', ps, ps.length);
+  //   for (var i = 0; i < ps.length; i++) {
+  //     var pathlabel = ps.item(i)
+  //     var a_element = document.createElement("a")
+  //     a_element.href = "https://www.w3schools.com/"
+  //     pathlabel?.append(a_element)
+  //   } | null = null
+  // }
 
   renderSunburst() {
     // console.log(this.props)
@@ -118,6 +129,8 @@ export class SunburstPanel extends Component<Props> {
           this.myChart.focusOnNode(this.lastZoomedNode);
         }
       }
+
+      // setTimeout(this.addHyperlinks, 100)
     }
   }
 
