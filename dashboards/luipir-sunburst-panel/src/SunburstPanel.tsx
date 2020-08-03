@@ -8,19 +8,21 @@ import Sunburst, { Node } from 'sunburst-chart';
 
 type Props = PanelProps<Options>;
 
+const INDEX: string = 'INDEX' // <<-- change if rename the var
 const INDEXES_SUNBURST: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
 
 export class SunburstPanel extends Component<Props> {
 
   myChart: typeof Sunburst;
-  lastZoomedNode: Node | null = null;
+  zoomedNode: Node | null = null;
   values: JSON | null = null;
+  index: String | null = null;
 
   constructor(props: Props) {
     super(props);
 
     this.myChart = Sunburst();
-    this.lastZoomedNode = null;
+    this.zoomedNode = null;
     this.values = null;
   }
 
@@ -60,13 +62,46 @@ export class SunburstPanel extends Component<Props> {
     }
     var nested = {"container": this.values}
     updateGrafanaColors(nested)
+
+    // manage to focus on node related to selected index
+    variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX});
+    variable = _.find(variable.options, {'selected': true})
+    variable.text == "None"?
+      this.index = null :
+      this.index = variable.text;
+
+    // set zoom node of the sunburst to that with index name
+    this.zoomedNode = null
+    if (this.index != null) {
+      this.sliceJSON(this.values, "name", this.index)
+    }
+  }
+
+  //return an array of values that match on a certain key
+  sliceJSON(obj, key, keyValue) {
+    if (key in obj) {
+      if (obj[key] == keyValue) {
+        this.zoomedNode = obj
+        return
+      }
+    }
+
+    for (var i in obj) {
+      if (this.zoomedNode != null) {
+        break
+      }
+      if (typeof obj[i] == 'object') {
+        this.sliceJSON(obj[i], key, keyValue)
+      }
+    }
   }
 
   onClickCallback(node: Node | null) {
     if (node) {
       console.log(node)
+      console.log(typeof(node))
       this.myChart.focusOnNode(node);
-      this.lastZoomedNode = node;
+      this.zoomedNode = node;
     }
   }
 
@@ -125,8 +160,8 @@ export class SunburstPanel extends Component<Props> {
             this.onClickCallback.bind(this) // bind to allow visibility of "this" insde the callback
           )(chart);
 
-        if (this.lastZoomedNode) {
-          this.myChart.focusOnNode(this.lastZoomedNode);
+        if (this.zoomedNode) {
+          this.myChart.focusOnNode(this.zoomedNode);
         }
       }
 
