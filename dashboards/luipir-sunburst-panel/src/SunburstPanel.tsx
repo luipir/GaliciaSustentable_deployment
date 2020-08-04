@@ -79,7 +79,7 @@ export class SunburstPanel extends Component<Props> {
 
   //return an array of values that match on a certain key
   sliceJSON(obj, key, keyValue) {
-    if (key in obj) {
+    if (obj && key in obj) {
       if (obj[key] == keyValue) {
         this.zoomedNode = obj
         return
