@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { PanelProps, DataSourceApi } from '@grafana/data';
-import { getDataSourceSrv } from '@grafana/runtime';
+import { PanelProps } from '@grafana/data';
+import { getTemplateSrv } from '@grafana/runtime';
 import { Options } from './types';
 
 import Sunburst, { Node } from 'sunburst-chart';
@@ -28,9 +28,9 @@ export class SunburstPanel extends Component<Props> {
 
   updateValues() {
     var variable: any;
-    const dataSource:DataSourceApi = getDataSourceSrv() as unknown as DataSourceApi;
+    const templateSrv = getTemplateSrv();
 
-    variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEXES_SUNBURST});
+    variable = _.find(templateSrv.getVariables(), {'name':INDEXES_SUNBURST});
     variable.options[0].text == "None"? 
       this.values = null :
       this.values = JSON.parse(variable.options[0].text)
@@ -64,7 +64,7 @@ export class SunburstPanel extends Component<Props> {
     updateGrafanaColors(nested)
 
     // manage to focus on node related to selected index
-    variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX});
+    variable = _.find(templateSrv.getVariables(), {'name':INDEX});
     variable = _.find(variable.options, {'selected': true})
     variable.text == "None"?
       this.index = null :
@@ -96,9 +96,39 @@ export class SunburstPanel extends Component<Props> {
     }
   }
 
+  private selectIndex(indexName: string) {
+    var variable: any;
+    const templateSrv = getTemplateSrv();
+
+    // manage to focus on node related to selected index
+    // this is a really hacky way due the fact that there is no API
+    // to trigger variable update. So the procedure is:
+    // 1) update the variable option selected in the dropdownmenu
+    // 2) trigger in a hacky way the dashboard update simulating click on the refresh button :(
+
+    // step 1) set the variabl index as selected and set it as current in the valiable
+    variable = _.find(templateSrv.getVariables(), {'name':INDEX});
+    variable.options.forEach((option: object) => {
+      if (option.text == indexName) {
+        option.selected = true
+        variable.current = option
+      } else {
+        option.selected = false
+      }
+    })
+
+    // step 2) look for the refresh buitton and programmatically do click()
+    const refresh_button_container = document.getElementsByClassName('refresh-picker-buttons');
+    refresh_button_container.forEach((element: any) => {
+      element.firstChild.firstChild.click()
+    })
+  }
+
   onClickCallback(node: Node | null) {
     if (node) {
-      this.myChart.focusOnNode(node);
+      this.selectIndex(node.name)
+
+      // this.myChart.focusOnNode(node);
       this.zoomedNode = node;
     }
   }
@@ -138,6 +168,10 @@ export class SunburstPanel extends Component<Props> {
   renderSunburst() {
     // console.log(this.props)
     const { height, width } = this.props;
+
+    // SystemJS.load('app/core/app_events').then((appEvents:any) => {
+    //   appEvents.on('graph-hover', (e:any) => console.log(e))
+    // })
 
     // remove previous chart
     const chart = document.getElementById('sunburst-chart-container');
