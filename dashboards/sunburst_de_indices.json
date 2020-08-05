@@ -18,7 +18,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1596122492423,
+  "iteration": 1596544799997,
   "links": [
     {
       "icon": "external link",
@@ -55,8 +55,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 13,
-        "w": 7,
+        "h": 20,
+        "w": 8,
         "x": 0,
         "y": 0
       },
@@ -108,9 +108,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 17,
-        "x": 7,
+        "h": 7,
+        "w": 5,
+        "x": 8,
         "y": 0
       },
       "id": 10,
@@ -160,8 +160,37 @@
           "custom": {
             "align": null
           },
-          "mappings": [],
-          "max": 100,
+          "mappings": [
+            {
+              "from": "0",
+              "id": 0,
+              "text": "Bajo",
+              "to": "1",
+              "type": 2
+            },
+            {
+              "from": "1",
+              "id": 1,
+              "text": "Medio",
+              "to": "2",
+              "type": 2
+            },
+            {
+              "from": "2",
+              "id": 2,
+              "text": "Alto",
+              "to": "3",
+              "type": 2
+            },
+            {
+              "from": "3",
+              "id": 3,
+              "text": "Mui alto",
+              "to": "4",
+              "type": 2
+            }
+          ],
+          "max": 4,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -172,15 +201,15 @@
               },
               {
                 "color": "dark-orange",
-                "value": 60
+                "value": 1
               },
               {
                 "color": "dark-yellow",
-                "value": 70
+                "value": 2
               },
               {
                 "color": "dark-green",
-                "value": 80
+                "value": 3
               }
             ]
           }
@@ -188,10 +217,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 9,
-        "x": 7,
-        "y": 4
+        "h": 13,
+        "w": 11,
+        "x": 13,
+        "y": 0
       },
       "id": 14,
       "options": {
@@ -257,15 +286,15 @@
               },
               {
                 "color": "dark-orange",
-                "value": 60
+                "value": 1
               },
               {
                 "color": "dark-yellow",
-                "value": 70
+                "value": 2
               },
               {
                 "color": "dark-green",
-                "value": 80
+                "value": 3
               }
             ]
           }
@@ -310,10 +339,10 @@
         ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 4
+        "h": 6,
+        "w": 5,
+        "x": 8,
+        "y": 7
       },
       "id": 20,
       "options": {
@@ -397,9 +426,9 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
+        "h": 8,
+        "w": 16,
+        "x": 8,
         "y": 13
       },
       "hiddenSeries": false,
@@ -519,10 +548,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 12,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 21
       },
       "id": 18,
       "options": {
@@ -621,9 +650,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "2015",
-          "value": "2015"
+          "selected": true,
+          "text": "2016",
+          "value": "2016"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT distinct(\"${YEAR_COLUMN}\")::integer FROM \"${SCHEMA}\".\"${INDEX_TABLE}\"",
@@ -674,8 +703,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "Accesibilidad recursos sanitarios",
-          "value": "Accesibilidad recursos sanitarios"
+          "text": "Vida inteligente",
+          "value": "Vida inteligente"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT display_name FROM \"${SCHEMA}\".indexes_metadata",
@@ -700,8 +729,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "07 Proximity by year evaluated",
-          "value": "07 Proximity by year evaluated"
+          "text": "Vida inteligente",
+          "value": "Vida inteligente"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT index_table_name \nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -726,8 +755,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "percentage",
-          "value": "percentage"
+          "text": "vida_inteligente",
+          "value": "vida_inteligente"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT metric_column\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -752,8 +781,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 64.3, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.4120821654185667, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 787.2160398276367, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.867715349537715, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}",
-          "value": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 64.3, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.4120821654185667, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 787.2160398276367, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.867715349537715, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}"
+          "text": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 63.9, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.5460267177958861, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 854.7860700664819, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.8774149177833817, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}",
+          "value": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 63.9, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.5460267177958861, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 854.7860700664819, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.8774149177833817, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT json\nFROM indexes_sunburst \nWHERE tstzrange(\"min_date\", \"max_date\", '[)') && '[\"${YEAR}-01-01 00:00:00+00\",\"${YEAR}-12-31 23:59:59+00\"]'::tstzrange ;",
@@ -825,8 +854,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "100% Proximidad centro atención primaria",
-          "value": "100% Proximidad centro atención primaria"
+          "text": "50% Actractivo de la ciudad (thema 1) y 50% Salud (Tema 2)",
+          "value": "50% Actractivo de la ciudad (thema 1) y 50% Salud (Tema 2)"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT formula\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -851,8 +880,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "[\n     {\n         \"low\": 0,\n         \"high\": 60,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 60,\n         \"high\": 70,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 70,\n         \"high\": 80,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 80,\n         \"high\": 100,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]",
-          "value": "[\n     {\n         \"low\": 0,\n         \"high\": 60,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 60,\n         \"high\": 70,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 70,\n         \"high\": 80,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 80,\n         \"high\": 100,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]"
+          "text": "[\n     {\n         \"low\": 0,\n         \"high\": 1,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 1,\n         \"high\": 2,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 2,\n         \"high\": 3,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 3,\n         \"high\": 4,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]",
+          "value": "[\n     {\n         \"low\": 0,\n         \"high\": 1,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 1,\n         \"high\": 2,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 2,\n         \"high\": 3,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 3,\n         \"high\": 4,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT classes::json->'classes'\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
@@ -877,8 +906,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "80",
-          "value": "80"
+          "text": "Alto",
+          "value": "Alto"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\" where \"${YEAR_COLUMN}\"=${YEAR}",
@@ -903,8 +932,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "72",
-          "value": "72"
+          "text": "Alto",
+          "value": "Alto"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\"",
@@ -929,10 +958,10 @@
   },
   "time": {
     "from": "2011-01-01T00:00:00.000Z",
-    "to": "2018-01-01T00:00:00.000Z"
+    "to": "2016-01-01T00:00:00.000Z"
   },
   "timepicker": {
-    "hidden": true,
+    "hidden": false,
     "refresh_intervals": [
       "10s",
       "30s",
@@ -948,5 +977,5 @@
   "timezone": "browser",
   "title": "Sunburst de indices",
   "uid": "Sunburst_de_indices_v0_1",
-  "version": 47
+  "version": 50
 }
