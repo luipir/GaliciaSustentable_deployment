@@ -8,7 +8,7 @@ services:
   db:
     image: kartoza/postgis:12.1
     volumes:
-      - ./volumes/postgis-data:/var/lib/postgresql
+      - ./volumes/postgis_data:/var/lib/postgresql
       - ${HOME}/.pg_service.conf:/.pg_service.conf
       # - dbbackups:/backups
     environment:
