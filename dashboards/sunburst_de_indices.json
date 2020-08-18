@@ -18,7 +18,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1596544799997,
+  "iteration": 1597674098586,
   "links": [
     {
       "icon": "external link",
@@ -31,73 +31,6 @@
   ],
   "panels": [
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 20,
-        "w": 8,
-        "x": 0,
-        "y": 0
-      },
-      "id": 8,
-      "options": {
-        "showHeader": true
-      },
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  TO_TIMESTAMP(\"año\"::text, 'YYYY') as \"time\",\n  \"02_evaluation\" as \"a_metric\"\nFROM \"Theme 1 synthesis\"\nWHERE ${Interval}::integer = \"año\"::integer\nORDER BY 1,2",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Año ${YEAR}",
-      "type": "luipir-sunburst-panel"
-    },
-    {
       "content": "\n# <p style=\"text-align: center;\"> ${index_title} </p>\n\n## <p style=\"text-align: center;\"> ${index_description} </p>\n\n________\n\n### <p style=\"text-align: center;\">  ${index_formula} </p>\n",
       "datasource": null,
       "description": "",
@@ -108,9 +41,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 5,
-        "x": 8,
+        "h": 5,
+        "w": 8,
+        "x": 0,
         "y": 0
       },
       "id": 10,
@@ -152,122 +85,6 @@
       "timeShift": null,
       "title": "",
       "type": "text"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "mappings": [
-            {
-              "from": "0",
-              "id": 0,
-              "text": "Bajo",
-              "to": "1",
-              "type": 2
-            },
-            {
-              "from": "1",
-              "id": 1,
-              "text": "Medio",
-              "to": "2",
-              "type": 2
-            },
-            {
-              "from": "2",
-              "id": 2,
-              "text": "Alto",
-              "to": "3",
-              "type": 2
-            },
-            {
-              "from": "3",
-              "id": 3,
-              "text": "Mui alto",
-              "to": "4",
-              "type": 2
-            }
-          ],
-          "max": 4,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-red",
-                "value": 0
-              },
-              {
-                "color": "dark-orange",
-                "value": 1
-              },
-              {
-                "color": "dark-yellow",
-                "value": 2
-              },
-              {
-                "color": "dark-green",
-                "value": 3
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 13,
-        "w": 11,
-        "x": 13,
-        "y": 0
-      },
-      "id": 14,
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showHeader": true,
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.1.1",
-      "targets": [
-        {
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT \"${INDEX_METRIC}\"\nFROM \"${SCHEMA}\".\"${INDEX_TABLE}\"\nWHERE \"${YEAR_COLUMN}\"=${YEAR}\n",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "${INDEX} - ${YEAR}",
-      "type": "luipir-gauge-panel"
     },
     {
       "datasource": null,
@@ -339,17 +156,17 @@
         ]
       },
       "gridPos": {
-        "h": 6,
-        "w": 5,
+        "h": 5,
+        "w": 6,
         "x": 8,
-        "y": 7
+        "y": 0
       },
       "id": 20,
       "options": {
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.1.3",
       "targets": [
         {
           "format": "table",
@@ -380,7 +197,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Panel Title",
+      "title": "",
       "transformations": [
         {
           "id": "organize",
@@ -396,10 +213,86 @@
       "type": "luipir-table-panel"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
+      "circleMaxSize": 30,
+      "circleMinSize": 2,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "datasource": null,
+      "decimals": 0,
+      "esMetric": "Count",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 10,
+        "x": 14,
+        "y": 0
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 22,
+      "initialZoom": 1,
+      "locationData": "json result",
+      "mapCenter": "(0°, 0°)",
+      "mapCenterLatitude": 0,
+      "mapCenterLongitude": 0,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "pluginVersion": "7.1.1",
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__time(time_column),\n  value1\nFROM\n  metric_table\nWHERE\n  $__timeFilter(time_column)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": "0,10",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "valueName": "current"
+    },
+    {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
@@ -423,13 +316,184 @@
         },
         "overrides": []
       },
+      "gridPos": {
+        "h": 17,
+        "w": 8,
+        "x": 0,
+        "y": 5
+      },
+      "id": 8,
+      "options": {
+        "showHeader": true
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  TO_TIMESTAMP(\"año\"::text, 'YYYY') as \"time\",\n  \"02_evaluation\" as \"a_metric\"\nFROM \"Theme 1 synthesis\"\nWHERE ${Interval}::integer = \"año\"::integer\nORDER BY 1,2",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Año ${YEAR}",
+      "type": "luipir-sunburst-panel"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [
+            {
+              "from": "0",
+              "id": 0,
+              "text": "Bajo",
+              "to": "1",
+              "type": 2
+            },
+            {
+              "from": "1",
+              "id": 1,
+              "text": "Medio",
+              "to": "2",
+              "type": 2
+            },
+            {
+              "from": "2",
+              "id": 2,
+              "text": "Alto",
+              "to": "3",
+              "type": 2
+            },
+            {
+              "from": "3",
+              "id": 3,
+              "text": "Mui alto",
+              "to": "4",
+              "type": 2
+            }
+          ],
+          "max": 4,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "dark-orange",
+                "value": 1
+              },
+              {
+                "color": "dark-yellow",
+                "value": 2
+              },
+              {
+                "color": "dark-green",
+                "value": 3
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 8,
+        "y": 5
+      },
+      "id": 14,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showHeader": true,
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.3",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \"${INDEX_METRIC}\"\nFROM \"${SCHEMA}\".\"${INDEX_TABLE}\"\nWHERE \"${YEAR_COLUMN}\"=${YEAR}\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "${INDEX} - ${YEAR}",
+      "type": "luipir-gauge-panel"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 13
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 16,
@@ -446,7 +510,7 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -486,7 +550,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Panel Title",
+      "title": "Time series of: ${INDEX}",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -551,13 +615,13 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 22
       },
       "id": 18,
       "options": {
         "showHeader": true
       },
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.1.3",
       "targets": [
         {
           "format": "table",
@@ -588,7 +652,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Panel Title",
+      "title": "Raw data of: ${INDEX}",
       "type": "table"
     }
   ],
@@ -650,9 +714,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
-          "text": "2016",
-          "value": "2016"
+          "selected": false,
+          "text": "2015",
+          "value": "2015"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT distinct(\"${YEAR_COLUMN}\")::integer FROM \"${SCHEMA}\".\"${INDEX_TABLE}\"",
@@ -781,8 +845,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 63.9, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.5460267177958861, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 854.7860700664819, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.8774149177833817, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}",
-          "value": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 63.9, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.5460267177958861, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 854.7860700664819, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.8774149177833817, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 84.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0941375070337411, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 83.29, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}"
+          "text": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 64.3, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.4120821654185667, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 787.2160398276367, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.867715349537715, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}",
+          "value": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 64.3, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.4120821654185667, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 787.2160398276367, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.867715349537715, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}"
         },
         "datasource": "GaliciaSustentable",
         "definition": "SELECT json\nFROM indexes_sunburst \nWHERE tstzrange(\"min_date\", \"max_date\", '[)') && '[\"${YEAR}-01-01 00:00:00+00\",\"${YEAR}-12-31 23:59:59+00\"]'::tstzrange ;",
@@ -957,8 +1021,8 @@
     ]
   },
   "time": {
-    "from": "2011-01-01T00:00:00.000Z",
-    "to": "2016-01-01T00:00:00.000Z"
+    "from": "now-6h",
+    "to": "now"
   },
   "timepicker": {
     "hidden": false,
@@ -977,5 +1041,5 @@
   "timezone": "browser",
   "title": "Sunburst de indices",
   "uid": "Sunburst_de_indices_v0_1",
-  "version": 50
+  "version": 54
 }
