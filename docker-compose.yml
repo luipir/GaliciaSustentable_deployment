@@ -24,7 +24,7 @@ services:
     networks:
       - galiciasustentable
     ports:
-      - 55432:5432
+      - 5432:5432
     restart: on-failure
     healthcheck:
       test: "exit 0"
@@ -121,8 +121,8 @@ services:
       PGSERVICEFILE: "/.pg_service.conf"
     networks:
       - galiciasustentable
-    ports:
-      - 5432:5432
+    # ports:
+    #   - 5432:5432
     depends_on:
       - "db"
     restart: always
