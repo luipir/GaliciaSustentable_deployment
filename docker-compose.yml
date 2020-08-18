@@ -1,15 +1,14 @@
 # docker-compose build
 version: '2.1'
-volumes:
-  # dbbackups:
-  postgis-data:
+# volumes:
+#   dbbackups:
 
 services:
 
   db:
     image: kartoza/postgis:12.1
     volumes:
-      - postgis-data:/var/lib/postgresql
+      - ./volumes/postgis-data:/var/lib/postgresql
       - ${HOME}/.pg_service.conf:/.pg_service.conf
       # - dbbackups:/backups
     environment:
@@ -70,7 +69,7 @@ services:
     environment:
       # Set this env var to allow dashboard to render html - https://github.com/grafana/grafana/issues/15647
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
-    #   - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+    # - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
     user: "0"
     links:
       - db
