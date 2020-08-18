@@ -3,24 +3,27 @@ version: '2.1'
 volumes:
   # dbbackups:
   postgis-data:
-  grafana-data:
 
 services:
 
   db:
     image: kartoza/postgis:12.1
     volumes:
-      - ${HOME}/postgis-data:/var/lib/postgresql
+      - postgis-data:/var/lib/postgresql
+      - ${HOME}/.pg_service.conf:/.pg_service.conf
       # - dbbackups:/backups
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
-      - POSTGRES_DB=gis
-      - POSTGRES_USER=docker
-      - POSTGRES_PASS=docker
+      - PGSERVICEFILE /.pg_service.conf
+      # - POSTGRES_DB=gis
+      # - POSTGRES_USER=docker
+      # - POSTGRES_PASS=docker
       - ALLOW_IP_RANGE=0.0.0.0/0
       # Add extensions you need to be enabled by default in the DB. Default are the five specified below
       # - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
       - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster
+    networks:
+      - galiciasustentable
     ports:
       - 55432:5432
     restart: on-failure
@@ -29,18 +32,21 @@ services:
 
   # dbbackups:
   #   image: kartoza/pg-backup:12.0
-  #   hostname: pg-backups
   #   volumes:
   #     - dbbackups:/backups
-  #   links:
-  #     - db:db
+  #     - ${HOME}/.pg_service.conf:/.pg_service.conf
   #   environment:
   #     - DUMPPREFIX=PG_db
-  #     - POSTGRES_USER=docker
-  #     - POSTGRES_PASS=docker
-  #     - POSTGRES_PORT=5432
-  #     - POSTGRES_HOST=db
-  #     - POSTGRES_DBNAME=gis
+  #     - PGSERVICEFILE /.pg_service.conf
+  #     # - POSTGRES_USER=docker
+  #     # - POSTGRES_PASS=docker
+  #     # - POSTGRES_PORT=5432
+  #     # - POSTGRES_HOST=db
+  #     # - POSTGRES_DBNAME=gis
+  #   networks:
+  #     - galiciasustentable
+  #   links:
+  #     - db:db
   #   restart: on-failure
   #   depends_on:
   #     db:
@@ -48,17 +54,79 @@ services:
 
   grafana:
     image: grafana/grafana:7.0.1
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
-    user: "0"
-    links:
-      - db
     volumes:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
-      - ${HOME}/grafana-data:/var/lib/grafana
+      - ./volumes/grafana_data:/var/lib/grafana
+      # add custom plugins from already compiled 
+      - ./dashboards/luipir-gauge-panel:/var/lib/grafana/plugins/luipir-gauge-panel
+      - ./dashboards/luipir-sunburst-panel:/var/lib/grafana/plugins/luipir-sunburst-panel
+      - ./dashboards/luipir-table-panel:/var/lib/grafana/plugins/luipir-table-panel
+    networks:
+      - galiciasustentable
+    ports:
+      # cannot change port otherwise have to modify other internal grafana ini files
+      - 3000:3000
+    environment:
+      # Set this env var to allow dashboard to render html - https://github.com/grafana/grafana/issues/15647
+      - GF_PANELS_DISABLE_SANITIZE_HTML=true
+    #   - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+    user: "0"
+    links:
+      - db
+      - qgis-server
     restart: on-failure
     healthcheck:
       test: "exit 0"
+
+  # settings for qgis-server
+  nginx:
+    image: "nginx"
+    volumes:
+      - ./conf/qgis-server-nginx-galiciasustentable.conf:/etc/nginx/nginx.conf
+    ports:
+      - "127.0.0.1:8010:80"
+      # - 8010:80
+    networks:
+      - galiciasustentable
+    restart: always
+    depends_on:
+      - qgis-server
+
+  qgis-server:
+    image: "openquake/qgis-server:3.14.0-ubuntu"
+    volumes:
+      # Data should be mount RO when working
+      # with GeoPackages and more than one QGIS container
+      - ./test/data:/io/data:ro
+      - ./plugins:/io/plugins
+      - ./fonts:/usr/share/fonts
+      - ./svg:/var/lib/qgis/.local/share/QGIS/QGIS3/profiles/default/svg
+      # DB connection conf
+      - ${HOME}/.pg_service.conf:/.pg_service.conf
+    environment:
+      # Do not run the embedded copy of nginx
+      SKIP_NGINX: "true"
+      # Improve rendering performance
+      QGIS_SERVER_PARALLEL_RENDERING: "true"
+      QGIS_SERVER_MAX_THREADS: 4
+      # Limit the maximum size returned by a GetMap
+      QGIS_SERVER_WMS_MAX_HEIGHT: 5000
+      QGIS_SERVER_WMS_MAX_WIDTH: 5000
+      # Logging
+      QGIS_DEBUG: 3
+      QGIS_LOG_FILE: "/tmp/qgis.log"
+      QGIS_SERVER_LOG_LEVEL: 0
+      QGIS_SERVER_LOG_FILE: "/tmp/qgiserver.log"
+      # DB connection
+      PGSERVICEFILE: "/.pg_service.conf"
+    networks:
+      - galiciasustentable
+    ports:
+      - 5432:5432
+    depends_on:
+      - "db"
+    restart: always
+    
+networks:
+  galiciasustentable:
