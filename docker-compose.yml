@@ -13,7 +13,7 @@ services:
       # - dbbackups:/backups
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
-      - PGSERVICEFILE /.pg_service.conf
+      # - PGSERVICEFILE=/.pg_service.conf
       # - POSTGRES_DB=gis
       # - POSTGRES_USER=docker
       # - POSTGRES_PASS=docker
