@@ -7,16 +7,12 @@ services:
 
   db:
     image: kartoza/postgis:12.1
+    user: "${USERID}" # set before run compose (check supervisord conf)
     volumes:
       - ./volumes/postgis_data:/var/lib/postgresql
       - ${HOME}/.pg_service.conf:/.pg_service.conf
       # - dbbackups:/backups
     environment:
-      # If you need to create multiple database you can add coma separated databases eg gis,data
-      # - PGSERVICEFILE=/.pg_service.conf
-      # - POSTGRES_DB=gis
-      # - POSTGRES_USER=docker
-      # - POSTGRES_PASS=docker
       - ALLOW_IP_RANGE=0.0.0.0/0
       # Add extensions you need to be enabled by default in the DB. Default are the five specified below
       # - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
@@ -53,6 +49,7 @@ services:
 
   grafana:
     image: grafana/grafana:7.0.1
+    user: "${USERID}" # set before run compose (check supervisord conf)
     volumes:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
@@ -70,7 +67,6 @@ services:
       # Set this env var to allow dashboard to render html - https://github.com/grafana/grafana/issues/15647
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
     # - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
-    user: "0"
     links:
       - db
       - qgis-server
@@ -94,6 +90,7 @@ services:
 
   qgis-server:
     image: "openquake/qgis-server:3.14.0-ubuntu"
+    user: "${USERID}" # set before run compose (check supervisord conf)
     volumes:
       # Data should be mount RO when working
       # with GeoPackages and more than one QGIS container
