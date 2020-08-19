@@ -94,10 +94,10 @@ services:
     volumes:
       # Data should be mount RO when working
       # with GeoPackages and more than one QGIS container
-      - ./test/data:/io/data:ro
-      - ./plugins:/io/plugins
-      - ./fonts:/usr/share/fonts
-      - ./svg:/var/lib/qgis/.local/share/QGIS/QGIS3/profiles/default/svg
+      - ./volumes/qgisserver_data/test/data:/io/data:ro
+      - ./volumes/qgisserver_data/plugins:/io/plugins
+      - ./volumes/qgisserver_data/fonts:/usr/share/fonts
+      - ./volumes/qgisserver_data/svg:/var/lib/qgis/.local/share/QGIS/QGIS3/profiles/default/svg
       # DB connection conf
       - ${HOME}/.pg_service.conf:/.pg_service.conf
     environment:
