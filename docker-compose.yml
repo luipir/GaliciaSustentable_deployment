@@ -7,7 +7,6 @@ services:
 
   db:
     image: kartoza/postgis:12.1
-    user: "${USERID}" # set before run compose (check supervisord conf)
     volumes:
       - ./volumes/postgis_data:/var/lib/postgresql
       - ${HOME}/.pg_service.conf:/.pg_service.conf
