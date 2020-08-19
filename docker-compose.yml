@@ -24,7 +24,7 @@ services:
     networks:
       - galiciasustentable
     ports:
-      - 5432:5432
+      - 55432:5432
     restart: on-failure
     healthcheck:
       test: "exit 0"
@@ -84,8 +84,8 @@ services:
     volumes:
       - ./conf/qgis-server-nginx-galiciasustentable.conf:/etc/nginx/nginx.conf
     ports:
-      - "127.0.0.1:8010:80"
-      # - 8010:80
+      # - "127.0.0.1:8010:80"
+      - 8010:80
     networks:
       - galiciasustentable
     restart: always
@@ -121,8 +121,8 @@ services:
       PGSERVICEFILE: "/.pg_service.conf"
     networks:
       - galiciasustentable
-    # ports:
-    #   - 5432:5432
+    ports:
+      - 5432:5432
     depends_on:
       - "db"
     restart: always
