@@ -1,0 +1,16 @@
+{
+  "type": "panel",
+  "name": "Custom Gauge",
+  "id": "luipir-gauge-panel",
+
+  "info": {
+    "author": {
+      "name": "Grafana Labs",
+      "url": "https://grafana.com"
+    },
+    "logos": {
+      "small": "img/icon_gauge.svg",
+      "large": "img/icon_gauge.svg"
+    }
+  }
+}
