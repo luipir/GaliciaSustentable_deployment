@@ -48,6 +48,7 @@ services:
 
   grafana:
     image: grafana/grafana:7.0.1
+    user: "${USERID}" # set before run compose (check supervisord conf)
     volumes:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
@@ -56,6 +57,7 @@ services:
       - ./dashboards/luipir-gauge-panel:/var/lib/grafana/plugins/luipir-gauge-panel
       - ./dashboards/luipir-sunburst-panel:/var/lib/grafana/plugins/luipir-sunburst-panel
       - ./dashboards/luipir-table-panel:/var/lib/grafana/plugins/luipir-table-panel
+      - ./dashboards/luipir-worldmap-panel:/var/lib/grafana/plugins/luipir-worldmap-panel
     networks:
       - galiciasustentable
     ports:
