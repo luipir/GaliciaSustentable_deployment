@@ -47,7 +47,7 @@ services:
   #       condition: service_healthy
 
   grafana:
-    image: grafana/grafana:7.0.1
+    image: grafana/grafana:7.1.5-ubuntu
     user: "${USERID}" # set before run compose (check supervisord conf)
     volumes:
       # Data persistency
