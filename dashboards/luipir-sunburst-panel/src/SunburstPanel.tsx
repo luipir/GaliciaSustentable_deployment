@@ -9,7 +9,7 @@ import Sunburst, { Node } from 'sunburst-chart';
 type Props = PanelProps<Options>;
 
 const INDEX: string = 'INDEX' // <<-- change if rename the var
-const INDEXES_SUNBURST: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
+// const INDEXES_SUNBURST: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
 
 export class SunburstPanel extends Component<Props> {
 
@@ -30,10 +30,13 @@ export class SunburstPanel extends Component<Props> {
     var variable: any;
     const templateSrv = getTemplateSrv();
 
-    variable = _.find(templateSrv.getVariables(), {'name':INDEXES_SUNBURST});
-    variable.options[0].text == "None"? 
+    // variable = _.find(templateSrv.getVariables(), {'name':INDEXES_SUNBURST});
+    // variable.options[0].text == "None"? 
+    //   this.values = null :
+    //   this.values = JSON.parse(variable.options[0].text)
+    this.props.data.series[0].fields[0].values.buffer == "None"?
       this.values = null :
-      this.values = JSON.parse(variable.options[0].text)
+      this.values = JSON.parse(this.props.data.series[0].fields[0].values.buffer[0])
 
     const color_map = {
       "dark-ŕed": "#C4162A",
@@ -166,7 +169,6 @@ export class SunburstPanel extends Component<Props> {
   // }
 
   renderSunburst() {
-    // console.log(this.props)
     const { height, width } = this.props;
 
     // SystemJS.load('app/core/app_events').then((appEvents:any) => {
