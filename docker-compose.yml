@@ -9,7 +9,7 @@ services:
     image: kartoza/postgis:12.1
     volumes:
       - ./volumes/postgis_data:/var/lib/postgresql
-      - ${HOME}/.pg_service.conf:/.pg_service.conf
+      - ${PGSERVICEFILE}:/.pg_service.conf
       # - dbbackups:/backups
     environment:
       - ALLOW_IP_RANGE=0.0.0.0/0
@@ -99,7 +99,7 @@ services:
       - ./volumes/qgisserver_data/fonts:/usr/share/fonts
       - ./volumes/qgisserver_data/svg:/var/lib/qgis/.local/share/QGIS/QGIS3/profiles/default/svg
       # DB connection conf
-      - ${HOME}/.pg_service.conf:/.pg_service.conf
+      - ${PGSERVICEFILE}:/.pg_service.conf
     environment:
       # Do not run the embedded copy of nginx
       SKIP_NGINX: "true"
