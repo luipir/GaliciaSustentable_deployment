@@ -17173,8 +17173,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
 var INDEX = 'INDEX'; // <<-- change if rename the var
-
-var INDEXES_SUNBURST = 'INDEXES_SUNBURST'; // <<-- change if rename the var
+// const INDEXES_SUNBURST: string = 'INDEXES_SUNBURST' // <<-- change if rename the var
 
 var SunburstPanel =
 /** @class */
@@ -17195,11 +17194,12 @@ function (_super) {
 
   SunburstPanel.prototype.updateValues = function () {
     var variable;
-    var templateSrv = Object(_grafana_runtime__WEBPACK_IMPORTED_MODULE_2__["getTemplateSrv"])();
-    variable = _.find(templateSrv.getVariables(), {
-      'name': INDEXES_SUNBURST
-    });
-    variable.options[0].text == "None" ? this.values = null : this.values = JSON.parse(variable.options[0].text);
+    var templateSrv = Object(_grafana_runtime__WEBPACK_IMPORTED_MODULE_2__["getTemplateSrv"])(); // variable = _.find(templateSrv.getVariables(), {'name':INDEXES_SUNBURST});
+    // variable.options[0].text == "None"? 
+    //   this.values = null :
+    //   this.values = JSON.parse(variable.options[0].text)
+
+    this.props.data.series[0].fields[0].values.buffer == "None" ? this.values = null : this.values = JSON.parse(this.props.data.series[0].fields[0].values.buffer[0]);
     var color_map = {
       "dark-ŕed": "#C4162A",
       "dark-orange": "#FA6400",
@@ -17327,7 +17327,6 @@ function (_super) {
 
 
   SunburstPanel.prototype.renderSunburst = function () {
-    // console.log(this.props)
     var _a = this.props,
         height = _a.height,
         width = _a.width; // SystemJS.load('app/core/app_events').then((appEvents:any) => {

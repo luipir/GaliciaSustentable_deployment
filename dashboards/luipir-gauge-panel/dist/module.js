@@ -411,10 +411,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var INDEX = 'INDEX'; // <<-- change if rename the var
-
-var METRIC_VALUE = 'METRIC_VALUE'; // <<-- change if rename the var
-
-var INDEX_CLASSES = 'INDEX_CLASSES'; // <<-- change if rename the var
+// const METRIC_VALUE: string = 'METRIC_VALUE' // <<-- change if rename the var
+// const INDEX_CLASSES: string = 'INDEX_CLASSES' // <<-- change if rename the var
 
 var GaugePanel =
 /** @class */
@@ -430,7 +428,6 @@ function (_super) {
     _this.renderComponent = function (valueProps, menuProps) {
       var _a = _this.props,
           fieldConfig = _a.fieldConfig,
-          data = _a.data,
           options = _a.options;
       var value = valueProps.value,
           width = valueProps.width,
@@ -519,16 +516,18 @@ function (_super) {
 
     if (index == null) {
       return;
-    }
+    } // variable = _.find(dataSource.templateSrv.getVariables(), {'name':METRIC_VALUE});
+    // variable.options[0].text == "None"? 
+    //   this.currentMetricValue = undefined :
+    //   this.currentMetricValue = variable.options[0].text
 
-    variable = _.find(dataSource.templateSrv.getVariables(), {
-      'name': METRIC_VALUE
-    });
-    variable.options[0].text == "None" ? this.currentMetricValue = undefined : this.currentMetricValue = variable.options[0].text;
-    variable = _.find(dataSource.templateSrv.getVariables(), {
-      'name': INDEX_CLASSES
-    });
-    variable.options[0].text == "None" ? classes = null : classes = JSON.parse(variable.options[0].text); // setup min max of the gauge
+
+    this.currentMetricValue = this.props.data.series[0].fields[0].values.buffer[0]; // variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX_CLASSES});
+    // variable.options[0].text == "None"?
+    //   classes = null:
+    //   classes = JSON.parse(variable.options[0].text)
+
+    this.props.data.series[0].fields == "None" ? classes = null : classes = JSON.parse(this.props.data.series[1].fields[0].values.buffer[0]); // setup min max of the gauge
 
     this.props.fieldConfig.defaults.min = classes[0].low;
     this.props.fieldConfig.defaults.max = classes[classes.length - 1].high; // setup thresholds steps of the gauge.

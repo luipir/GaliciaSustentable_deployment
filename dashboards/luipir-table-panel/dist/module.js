@@ -1,4 +1,4 @@
-define(["@grafana/data","@grafana/runtime","@grafana/ui","emotion","lodash","react"], function(__WEBPACK_EXTERNAL_MODULE__grafana_data__, __WEBPACK_EXTERNAL_MODULE__grafana_runtime__, __WEBPACK_EXTERNAL_MODULE__grafana_ui__, __WEBPACK_EXTERNAL_MODULE_emotion__, __WEBPACK_EXTERNAL_MODULE_lodash__, __WEBPACK_EXTERNAL_MODULE_react__) { return /******/ (function(modules) { // webpackBootstrap
+define(["@grafana/data","@grafana/runtime","@grafana/ui","emotion","react"], function(__WEBPACK_EXTERNAL_MODULE__grafana_data__, __WEBPACK_EXTERNAL_MODULE__grafana_runtime__, __WEBPACK_EXTERNAL_MODULE__grafana_ui__, __WEBPACK_EXTERNAL_MODULE_emotion__, __WEBPACK_EXTERNAL_MODULE_react__) { return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -353,28 +353,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @grafana/ui */ "@grafana/ui");
-/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_grafana_ui__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _grafana_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @grafana/data */ "@grafana/data");
-/* harmony import */ var _grafana_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_grafana_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! emotion */ "emotion");
-/* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(emotion__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _grafana_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @grafana/runtime */ "@grafana/runtime");
-/* harmony import */ var _grafana_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_grafana_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @grafana/ui */ "@grafana/ui");
+/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_grafana_ui__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _grafana_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @grafana/data */ "@grafana/data");
+/* harmony import */ var _grafana_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_grafana_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! emotion */ "emotion");
+/* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(emotion__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _grafana_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @grafana/runtime */ "@grafana/runtime");
+/* harmony import */ var _grafana_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_grafana_runtime__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
 
 
 
- // import { FilterItem, TableSortByFieldState } from '@grafana/ui/components/Table/types';
-// import { Store } from 'redux';
-// import { applyFilterFromTable } from '../../../features/variables/adhoc/actions';
-// import { PanelModel } from '@grafana/data';
-
-var INDEX_CLASSES = 'INDEX_CLASSES'; // <<-- change if rename the var
 
 var TablePanel =
 /** @class */
@@ -387,7 +379,7 @@ function (_super) {
     _this.onColumnResize = function (fieldDisplayName, width) {
       var fieldConfig = _this.props.fieldConfig;
       var overrides = fieldConfig.overrides;
-      var matcherId = _grafana_data__WEBPACK_IMPORTED_MODULE_4__["FieldMatcherID"].byName;
+      var matcherId = _grafana_data__WEBPACK_IMPORTED_MODULE_3__["FieldMatcherID"].byName;
       var propId = 'custom.width'; // look for existing override
 
       var override = overrides.find(function (o) {
@@ -457,7 +449,7 @@ function (_super) {
 
   TablePanel.prototype.renderTable = function (frame, width, height) {
     var options = this.props.options;
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_grafana_ui__WEBPACK_IMPORTED_MODULE_3__["Table"], {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_grafana_ui__WEBPACK_IMPORTED_MODULE_2__["Table"], {
       height: height,
       width: width,
       data: frame,
@@ -480,20 +472,22 @@ function (_super) {
   };
 
   TablePanel.prototype.forcePanelProps = function () {
-    var classes;
-    var variable;
-    var dataSource = Object(_grafana_runtime__WEBPACK_IMPORTED_MODULE_6__["getDataSourceSrv"])();
-    variable = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.find(dataSource.templateSrv.getVariables(), {
-      'name': INDEX_CLASSES
-    });
-    variable.options[0].text == "None" ? classes = null : classes = JSON.parse(variable.options[0].text); // setup thresholds steps to show colors of the legend.
+    var classes; // var variable: any;
+    // const dataSource:DataSourceApi = getDataSourceSrv() as unknown as DataSourceApi;
+    // variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX_CLASSES});
+    // variable.options[0].text == "None"?
+    //   classes = null:
+    //   classes = JSON.parse(variable.options[0].text)
+
+    console.log(this.props.data);
+    this.props.data.series[0].fields == "None" ? classes = null : classes = this.props.data.series[0].fields; // setup thresholds steps to show colors of the legend.
 
     var steps = []; // categories are numeric => get threshold from low values
 
     for (var i = 0; i < classes.length; i++) {
       steps[i] = {
-        "color": classes[i].color,
-        "value": classes[i].low
+        "color": classes[3].values.buffer[i],
+        "value": classes[0].values.buffer[i]
       };
     }
 
@@ -553,12 +547,12 @@ function (_super) {
     this.forcePanelProps();
 
     if (count > 1) {
-      var inputHeight = _grafana_runtime__WEBPACK_IMPORTED_MODULE_6__["config"].theme.spacing.formInputHeight;
+      var inputHeight = _grafana_runtime__WEBPACK_IMPORTED_MODULE_5__["config"].theme.spacing.formInputHeight;
       var padding = 8 * 2;
       var currentIndex = this.getCurrentFrameIndex();
       var names = data.series.map(function (frame, index) {
         return {
-          label: Object(_grafana_data__WEBPACK_IMPORTED_MODULE_4__["getFrameDisplayName"])(frame),
+          label: Object(_grafana_data__WEBPACK_IMPORTED_MODULE_3__["getFrameDisplayName"])(frame),
           value: index
         };
       });
@@ -566,7 +560,7 @@ function (_super) {
         className: tableStyles.wrapper
       }, this.renderTable(data.series[currentIndex], width, height - inputHeight - padding), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: tableStyles.selectWrapper
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_grafana_ui__WEBPACK_IMPORTED_MODULE_3__["Select"], {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_grafana_ui__WEBPACK_IMPORTED_MODULE_2__["Select"], {
         options: names,
         value: names[currentIndex],
         onChange: this.onChangeTableSelection
@@ -581,8 +575,8 @@ function (_super) {
 
 
 var tableStyles = {
-  wrapper: Object(emotion__WEBPACK_IMPORTED_MODULE_5__["css"])(templateObject_1 || (templateObject_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__makeTemplateObject"])(["\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    height: 100%;\n  "], ["\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    height: 100%;\n  "]))),
-  selectWrapper: Object(emotion__WEBPACK_IMPORTED_MODULE_5__["css"])(templateObject_2 || (templateObject_2 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__makeTemplateObject"])(["\n    padding: 8px;\n  "], ["\n    padding: 8px;\n  "])))
+  wrapper: Object(emotion__WEBPACK_IMPORTED_MODULE_4__["css"])(templateObject_1 || (templateObject_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__makeTemplateObject"])(["\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    height: 100%;\n  "], ["\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    height: 100%;\n  "]))),
+  selectWrapper: Object(emotion__WEBPACK_IMPORTED_MODULE_4__["css"])(templateObject_2 || (templateObject_2 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__makeTemplateObject"])(["\n    padding: 8px;\n  "], ["\n    padding: 8px;\n  "])))
 };
 var templateObject_1, templateObject_2;
 
@@ -758,17 +752,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__grafana_ui__;
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_emotion__;
-
-/***/ }),
-
-/***/ "lodash":
-/*!*************************!*\
-  !*** external "lodash" ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_lodash__;
 
 /***/ }),
 
