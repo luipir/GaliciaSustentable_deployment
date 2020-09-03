@@ -8,8 +8,8 @@ import { DataLinksContextMenuApi } from '@grafana/ui/components/DataLinks/DataLi
 import { GaugeOptions } from './types';
 
 const INDEX: string = 'INDEX' // <<-- change if rename the var
-const METRIC_VALUE: string = 'METRIC_VALUE' // <<-- change if rename the var
-const INDEX_CLASSES: string = 'INDEX_CLASSES' // <<-- change if rename the var
+// const METRIC_VALUE: string = 'METRIC_VALUE' // <<-- change if rename the var
+// const INDEX_CLASSES: string = 'INDEX_CLASSES' // <<-- change if rename the var
 
 export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
 
@@ -20,7 +20,7 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
     valueProps: VizRepeaterRenderValueProps<FieldDisplay>,
     menuProps: DataLinksContextMenuApi
   ): JSX.Element => {
-    const { fieldConfig, data, options } = this.props;
+    const { fieldConfig, options } = this.props;
     const { value, width, height } = valueProps;
     const { field, display } = value;
 
@@ -105,15 +105,19 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
       return
     }
 
-    variable = _.find(dataSource.templateSrv.getVariables(), {'name':METRIC_VALUE});
-    variable.options[0].text == "None"? 
-      this.currentMetricValue = undefined :
-      this.currentMetricValue = variable.options[0].text
+    // variable = _.find(dataSource.templateSrv.getVariables(), {'name':METRIC_VALUE});
+    // variable.options[0].text == "None"? 
+    //   this.currentMetricValue = undefined :
+    //   this.currentMetricValue = variable.options[0].text
+    this.currentMetricValue = this.props.data.series[0].fields[0].values.buffer[0]
     
-    variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX_CLASSES});
-    variable.options[0].text == "None"?
-      classes = null:
-      classes = JSON.parse(variable.options[0].text)
+    // variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX_CLASSES});
+    // variable.options[0].text == "None"?
+    //   classes = null:
+    //   classes = JSON.parse(variable.options[0].text)
+    this.props.data.series[0].fields == "None"?
+      classes = null :
+      classes = JSON.parse(this.props.data.series[1].fields[0].values.buffer[0])
 
     // setup min max of the gauge
     this.props.fieldConfig.defaults.min = classes[0].low
