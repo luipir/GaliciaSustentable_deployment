@@ -28,15 +28,10 @@ services:
   #   image: kartoza/pg-backup:12.0
   #   volumes:
   #     - dbbackups:/backups
-  #     - ${HOME}/.pg_service.conf:/.pg_service.conf
+  #     - ${PGSERVICEFILE}:/.pg_service.conf
   #   environment:
   #     - DUMPPREFIX=PG_db
   #     - PGSERVICEFILE /.pg_service.conf
-  #     # - POSTGRES_USER=docker
-  #     # - POSTGRES_PASS=docker
-  #     # - POSTGRES_PORT=5432
-  #     # - POSTGRES_HOST=db
-  #     # - POSTGRES_DBNAME=gis
   #   networks:
   #     - galiciasustentable
   #   links:
