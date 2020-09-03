@@ -17,8 +17,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
-  "iteration": 1598957896267,
+  "id": 8,
+  "iteration": 1599130586711,
   "links": [],
   "panels": [
     {
@@ -143,6 +143,18 @@
                 "value": "center"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "color"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 1
+              }
+            ]
           }
         ]
       },
@@ -154,6 +166,7 @@
       },
       "id": 20,
       "options": {
+        "frameIndex": 1,
         "showHeader": true,
         "sortBy": []
       },
@@ -164,7 +177,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT *\nFROM json_to_recordset(\n  '${INDEX_CLASSES}'\n) as t(low float, high float, value text, color text) order by low\n\n",
+          "rawSql": "SELECT *\nFROM json_to_recordset(\n  (\n   SELECT classes::json->'classes'\n   FROM \"${SCHEMA}\".indexes_metadata\n   WHERE display_name='${INDEX}'\n  )\n) as t(low float, high float, value text, color text) order by low",
           "refId": "A",
           "select": [
             [
@@ -189,18 +202,7 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "color": true
-            },
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
+      "transformations": [],
       "type": "luipir-table-panel"
     },
     {
@@ -251,9 +253,17 @@
           "lon": "-8.5448"
         },
         "layers": "index_07_1_proximity_areas,CentrosAtencionPrimaria_snapped",
+        "legend": {
+          "display": true,
+          "font": "Arial",
+          "heigh": 128,
+          "position": "bottomleft",
+          "transparent": true,
+          "width": 128
+        },
         "opacity": 0.5,
         "url": "http://localhost:8010/gs/public/test_local_docker",
-        "zoomLevel": 12
+        "zoomLevel": 11.5
       },
       "showLegend": true,
       "stickyLabels": false,
@@ -302,7 +312,7 @@
       "valueName": "total"
     },
     {
-      "datasource": null,
+      "datasource": "GaliciaSustentable",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -340,8 +350,8 @@
           "format": "table",
           "group": [],
           "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  TO_TIMESTAMP(\"año\"::text, 'YYYY') as \"time\",\n  \"02_evaluation\" as \"a_metric\"\nFROM \"Theme 1 synthesis\"\nWHERE ${Interval}::integer = \"año\"::integer\nORDER BY 1,2",
+          "rawQuery": true,
+          "rawSql": "SELECT json\nFROM indexes_sunburst \nWHERE tstzrange(\"min_date\", \"max_date\", '[)') && '[\"${YEAR}-01-01 00:00:00+00\",\"${YEAR}-12-31 23:59:59+00\"]'::tstzrange ;",
           "refId": "A",
           "select": [
             [
@@ -457,8 +467,61 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT \"${INDEX_METRIC}\"\nFROM \"${SCHEMA}\".\"${INDEX_TABLE}\"\nWHERE \"${YEAR_COLUMN}\"=${YEAR}\n",
+          "rawSql": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\" where \"${YEAR_COLUMN}\"=${YEAR}",
           "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT classes::json->'classes'\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'\n",
+          "refId": "B",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        },
+        {
+          "format": "time_series",
+          "group": [],
+          "hide": true,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT *\nFROM json_to_recordset(\n  (\n   SELECT classes::json->'classes'\n   FROM \"${SCHEMA}\".indexes_metadata\n   WHERE display_name='${INDEX}'\n  )\n) as t(low float, high float, value text, color text) order by low",
+          "refId": "C",
           "select": [
             [
               {
@@ -749,33 +812,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "03 Autocontencion laboral evaluated",
-          "value": "03 Autocontencion laboral evaluated"
-        },
-        "datasource": "GaliciaSustentable",
-        "definition": "SELECT\n\t table_name\nFROM\n\tinformation_schema.tables\nWHERE\n\ttable_schema = '${SCHEMA}' AND\n\ttable_type = 'BASE TABLE' AND\n        table_name ~ '^(0|1|A|B|Theme)'\n",
-        "hide": 2,
-        "includeAll": false,
-        "label": "Indice",
-        "multi": false,
-        "name": "INDEX_TABLES",
-        "options": [],
-        "query": "SELECT\n\t table_name\nFROM\n\tinformation_schema.tables\nWHERE\n\ttable_schema = '${SCHEMA}' AND\n\ttable_type = 'BASE TABLE' AND\n        table_name ~ '^(0|1|A|B|Theme)'\n",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": false,
+          "selected": true,
           "text": "Vida inteligente",
           "value": "Vida inteligente"
         },
@@ -854,53 +891,6 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 64.3, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.4120821654185667, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 787.2160398276367, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.867715349537715, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}",
-          "value": "{\"name\": \"Vida inteligente\", \"children\": [{\"name\": \"Atractivo de ciudad\", \"children\": [{\"name\": \"Atractivo laboral/residencial\", \"children\": [{\"name\": \"Autocontención laboral\", \"size\": 0.36, \"percentage\": 64.3, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Saldo migratorio\", \"size\": 0.24, \"percentage\": 0.4120821654185667, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Atractivo turístico\", \"children\": [{\"name\": \"Visitantes en la ciudad\", \"size\": 0.16, \"percentage\": 787.2160398276367, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Visitantes que repiten\", \"size\": 0.24, \"percentage\": 3.867715349537715, \"value\": \"Medio\", \"color\": \"dark-orange\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Salud\", \"children\": [{\"name\": \"Accesibilidad recursos sanitarios\", \"children\": [{\"name\": \"Proximidad a centro atención primaria\", \"size\": 0.2, \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 80.0, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Recursos sanitarios\", \"children\": [{\"name\": \"Capacidad atención primaria\", \"size\": 0.3, \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 1.0772706354850856, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}, {\"name\": \"Vida saludable\", \"children\": [{\"name\": \"Esperanza de vida al nacer\", \"size\": 0.5, \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": 82.52, \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Mui alto\", \"value\": \"Mui alto\", \"color\": \"dark-green\", \"hiperlinks\": [\"<some hiperlinks>\"]}], \"percentage\": \"Alto\", \"value\": \"Alto\", \"color\": \"dark-yellow\", \"hiperlinks\": [\"<some hiperlinks>\"]}"
-        },
-        "datasource": "GaliciaSustentable",
-        "definition": "SELECT json\nFROM indexes_sunburst \nWHERE tstzrange(\"min_date\", \"max_date\", '[)') && '[\"${YEAR}-01-01 00:00:00+00\",\"${YEAR}-12-31 23:59:59+00\"]'::tstzrange ;",
-        "hide": 2,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "INDEXES_SUNBURST",
-        "options": [],
-        "query": "SELECT json\nFROM indexes_sunburst \nWHERE tstzrange(\"min_date\", \"max_date\", '[)') && '[\"${YEAR}-01-01 00:00:00+00\",\"${YEAR}-12-31 23:59:59+00\"]'::tstzrange ;",
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "0.8720506800530843",
-          "value": "0.8720506800530843"
-        },
-        "hide": 2,
-        "label": null,
-        "name": "SELECTED_NODE",
-        "options": [
-          {
-            "selected": false,
-            "text": 0.8720506800530843,
-            "value": 0.8720506800530843
-          }
-        ],
-        "query": "none_for_now",
-        "queryValue": "",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": false,
           "text": "TBD",
           "value": "TBD"
         },
@@ -948,84 +938,6 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "[\n     {\n         \"low\": 0,\n         \"high\": 1,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 1,\n         \"high\": 2,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 2,\n         \"high\": 3,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 3,\n         \"high\": 4,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]",
-          "value": "[\n     {\n         \"low\": 0,\n         \"high\": 1,\n         \"value\": \"Bajo\",\n         \"color\": \"dark-red\"\n     },\n     {\n         \"low\": 1,\n         \"high\": 2,\n         \"value\": \"Medio\",\n         \"color\": \"dark-orange\"\n     },\n     {\n         \"low\": 2,\n         \"high\": 3,\n         \"value\": \"Alto\",\n         \"color\": \"dark-yellow\"\n     },\n     {\n         \"low\": 3,\n         \"high\": 4,\n         \"value\": \"Mui alto\",\n         \"color\": \"dark-green\"\n     }\n ]"
-        },
-        "datasource": "GaliciaSustentable",
-        "definition": "SELECT classes::json->'classes'\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
-        "hide": 2,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "INDEX_CLASSES",
-        "options": [],
-        "query": "SELECT classes::json->'classes'\nFROM \"${SCHEMA}\".indexes_metadata\nWHERE display_name='${INDEX}'",
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "Alto",
-          "value": "Alto"
-        },
-        "datasource": "GaliciaSustentable",
-        "definition": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\" where \"${YEAR_COLUMN}\"=${YEAR}",
-        "hide": 2,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "METRIC_VALUE",
-        "options": [],
-        "query": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\" where \"${YEAR_COLUMN}\"=${YEAR}",
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "Alto",
-          "value": "Alto"
-        },
-        "datasource": "GaliciaSustentable",
-        "definition": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\"",
-        "hide": 2,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "METRIC_VALUES",
-        "options": [],
-        "query": "SELECT \"${INDEX_METRIC}\" FROM \"${SCHEMA}\".\"${INDEX_TABLE}\"",
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
       }
     ]
   },
@@ -1050,5 +962,5 @@
   "timezone": "browser",
   "title": "Sunburst de indices",
   "uid": "Sunburst_de_indices_v0_1",
-  "version": 65
+  "version": 19
 }
