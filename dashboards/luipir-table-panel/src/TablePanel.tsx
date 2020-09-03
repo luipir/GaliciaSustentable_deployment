@@ -8,18 +8,18 @@ import {
   getFrameDisplayName,
   PanelProps,
   SelectableValue,
-  DataSourceApi
+  // DataSourceApi
 } from '@grafana/data';
 import { Options } from './types';
 import { css } from 'emotion';
-import { config, getDataSourceSrv } from '@grafana/runtime';
+import { config } from '@grafana/runtime';
 import { TableSortByFieldState } from '@grafana/ui/components/Table/types';
 // import { FilterItem, TableSortByFieldState } from '@grafana/ui/components/Table/types';
 // import { Store } from 'redux';
 // import { applyFilterFromTable } from '../../../features/variables/adhoc/actions';
 // import { PanelModel } from '@grafana/data';
 
-const INDEX_CLASSES: string = 'INDEX_CLASSES' // <<-- change if rename the var
+// const INDEX_CLASSES: string = 'INDEX_CLASSES' // <<-- change if rename the var
 
 interface Props extends PanelProps<Options> {}
 
@@ -115,22 +115,26 @@ export class TablePanel extends Component<Props> {
   }
 
   forcePanelProps() {
-    var classes: JSON | null;
-    var variable: any;
-    const dataSource:DataSourceApi = getDataSourceSrv() as unknown as DataSourceApi;
+    var classes: object | null;
+    // var variable: any;
+    // const dataSource:DataSourceApi = getDataSourceSrv() as unknown as DataSourceApi;
 
-    variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX_CLASSES});
-    variable.options[0].text == "None"?
-      classes = null:
-      classes = JSON.parse(variable.options[0].text)
+    // variable = _.find(dataSource.templateSrv.getVariables(), {'name':INDEX_CLASSES});
+    // variable.options[0].text == "None"?
+    //   classes = null:
+    //   classes = JSON.parse(variable.options[0].text)
+    console.log(this.props.data)
+    this.props.data.series[0].fields == "None"?
+      classes = null :
+      classes = this.props.data.series[0].fields
 
     // setup thresholds steps to show colors of the legend.
     var steps: object[] = [];
     // categories are numeric => get threshold from low values
     for (var i = 0; i < classes.length; i++) {
       steps[i] = {
-        "color": classes[i].color,
-        "value": classes[i].low
+        "color": classes[3].values.buffer[i],
+        "value": classes[0].values.buffer[i]
       }
     }
     this.props.fieldConfig.defaults.thresholds.steps = steps
