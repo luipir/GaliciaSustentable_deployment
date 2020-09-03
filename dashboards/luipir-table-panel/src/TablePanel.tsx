@@ -123,7 +123,6 @@ export class TablePanel extends Component<Props> {
     // variable.options[0].text == "None"?
     //   classes = null:
     //   classes = JSON.parse(variable.options[0].text)
-    console.log(this.props.data)
     this.props.data.series[0].fields == "None"?
       classes = null :
       classes = this.props.data.series[0].fields
