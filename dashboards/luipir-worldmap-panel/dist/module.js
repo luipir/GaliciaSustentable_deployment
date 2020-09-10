@@ -15610,15 +15610,12 @@ function (_super) {
 
 
   WorldmapCtrl.prototype.onDataReceived = function (dataList) {
-    console.log("onDataReceived");
-
     if (!dataList) {
       return;
     } // first query HAVE to be that gettin qgid_project_options column... then 
     // remove resutl to allow worldmap panel to work as usual
 
 
-    console.log('dataList: ', dataList);
     dataList[0].rows[0][0] == "None" ? this.panel.qgis_project_options = null : this.panel.qgis_project_options = JSON.parse(dataList[0].rows[0]);
     delete dataList[0];
     this.render();
@@ -15753,8 +15750,6 @@ function (_super) {
     });
 
     function render() {
-      console.log("render");
-
       if (!ctrl.data) {
         return;
       } // delay first render as the map panel sizing is bugged first render even though the element has correct height

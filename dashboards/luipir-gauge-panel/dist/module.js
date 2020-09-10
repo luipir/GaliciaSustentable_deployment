@@ -527,7 +527,9 @@ function (_super) {
     //   classes = null:
     //   classes = JSON.parse(variable.options[0].text)
 
-    this.props.data.series[0].fields == "None" ? classes = null : classes = JSON.parse(this.props.data.series[1].fields[0].values.buffer[0]); // setup min max of the gauge
+    this.props.data.series[0].fields == "None" ? classes = null : classes = JSON.parse(this.props.data.series[1].fields[0].values.buffer[0]); // remove classes (e.g. last query) to leave only the value to visualize
+    // this.props.data.series.pop()
+    // setup min max of the gauge
 
     this.props.fieldConfig.defaults.min = classes[0].low;
     this.props.fieldConfig.defaults.max = classes[classes.length - 1].high; // setup thresholds steps of the gauge.
@@ -580,8 +582,9 @@ function (_super) {
 
       this.props.data.series[0].fields[0].values.buffer[0] = String(numeric_value);
     } else {
+      // remove mapping otherwise field value is displayed with it's category
       this.props.fieldConfig.defaults.mappings = [];
-      this.props.data.series[0].fields[0].type = "number";
+      this.props.data.series[0].fields[0].config.mappings = [];
     }
   };
 
