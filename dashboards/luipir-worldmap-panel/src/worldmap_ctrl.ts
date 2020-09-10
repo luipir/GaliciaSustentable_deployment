@@ -208,15 +208,12 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
   // }
 
   onDataReceived(dataList) {
-    console.log("onDataReceived")
-
     if (!dataList) {
       return;
     }
 
     // first query HAVE to be that gettin qgid_project_options column... then 
     // remove resutl to allow worldmap panel to work as usual
-    console.log('dataList: ', dataList)
     dataList[0].rows[0][0] == "None"?
         this.panel.qgis_project_options = null:
         this.panel.qgis_project_options = JSON.parse(dataList[0].rows[0])
@@ -353,7 +350,6 @@ export default class WorldmapCtrl extends MetricsPanelCtrl {
     });
 
     function render() {
-      console.log("render")
       if (!ctrl.data) {
         return;
       }
