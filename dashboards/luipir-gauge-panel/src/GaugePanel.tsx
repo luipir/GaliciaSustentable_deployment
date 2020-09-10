@@ -1,8 +1,16 @@
 import React, { PureComponent } from 'react';
 
 import { config, GrafanaBootConfig, getDataSourceSrv } from '@grafana/runtime';
-import { getColorFromHexRgbOrName, FieldDisplay, getFieldDisplayValues, PanelProps, VizOrientation, DataSourceApi } from '@grafana/data';
-import { DataLinksContextMenu, Gauge, VizRepeater, VizRepeaterRenderValueProps } from '@grafana/ui';
+import { getColorFromHexRgbOrName,
+        FieldDisplay,
+        getFieldDisplayValues,
+        PanelProps,
+        VizOrientation,
+        DataSourceApi } from '@grafana/data';
+import { DataLinksContextMenu,
+        Gauge,
+        VizRepeater,
+        VizRepeaterRenderValueProps } from '@grafana/ui';
 import { DataLinksContextMenuApi } from '@grafana/ui/components/DataLinks/DataLinksContextMenu';
 
 import { GaugeOptions } from './types';
@@ -176,15 +184,16 @@ export class GaugePanel extends PureComponent<PanelProps<GaugeOptions>> {
       this.props.data.series[0].fields[0].values.buffer[0] = String(numeric_value)
 
     } else {
+      // remove mapping otherwise field value is displayed with it's category
       this.props.fieldConfig.defaults.mappings = []
-      this.props.data.series[0].fields[0].type = "number"
+      this.props.data.series[0].fields[0].config.mappings = []
     }
   }
 
   render() {
     const { height, width, data, renderCounter } = this.props;
 
-    this.forcePanelProps()
+    this.forcePanelProps();
 
     return (
       <VizRepeater
