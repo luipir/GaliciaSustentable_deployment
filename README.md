@@ -13,6 +13,6 @@
 ## Install supervisor.d configuration
 - sudo cp ~/GaliciaSustentable_deployment/supervisor.d/galicia_sustentable.conf /etc/supervisor/conf.d/
 
-## Start first time and mail it alive forever :)
+## Start first time and mail it will live forever :)
 - service supervisor restart
 
